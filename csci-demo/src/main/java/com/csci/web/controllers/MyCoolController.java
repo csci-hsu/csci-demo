@@ -1,6 +1,8 @@
 package com.csci.web.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,5 +49,19 @@ public class MyCoolController {
 	public String header(@RequestHeader("My-Cool-Header") String myCoolHeader) {
 		System.out.println(myCoolHeader);
 		return myCoolHeader;
+	}
+	
+	/**
+	 * Processes a request to /pathparam, where the second URI segment contains
+	 * the value of name.
+	 * 
+	 * @param name The name of the person to greet, sent via the URL!
+	 * @param model Thymeleaf uses a Model object to send information to the template. It's basically just a map. 
+	 * @return The name of the Thymeleaf template to render.
+	 */
+	@RequestMapping("/pathparam/{name}")
+	public String pathParam(@PathVariable String name, Model model) {
+		model.addAttribute("name", name);
+		return "greeter";
 	}
 }
